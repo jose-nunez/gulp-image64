@@ -7,6 +7,34 @@ const fs = require('fs');
 const path = require('path');
 const mime = require('mime');
 
+
+function transform(sourceSrc,file,$el) {
+    const isBase64Already = sourceSrc.indexOf('data');
+
+    if (sourceSrc !== '' && typeof sourceSrc !== 'undefined' && isBase64Already !== 0) {
+        let basePath = file.base;
+
+        if (file.history.length) {
+          const historyPath = file.history[0].split('/');
+
+          historyPath.pop();
+
+          basePath = historyPath.join('/');
+        }
+
+        const sourcePath = path.join(basePath, sourceSrc);
+        const mimetype = mime.lookup(sourcePath);
+
+        if (mimetype !== 'application/octet-stream') {
+            const sfile = fs.readFileSync(sourcePath);
+            const simg64 = new Buffer(sfile).toString('base64');
+
+            $el.attr('src', `data:${mimetype};base64,${simg64}`);
+        }
+    }
+}
+
+
 module.exports = () => {
 
     // create a stream through which each file will pass
@@ -31,29 +59,16 @@ module.exports = () => {
                 const sourceSrc = $el.attr('src');
 
                 if (sourceSrc) {
-                    const isBase64Already = sourceSrc.indexOf('data');
+                    transform(sourceSrc,file,$el)
+                }
+            });
 
-                    if (sourceSrc !== '' && typeof sourceSrc !== 'undefined' && isBase64Already !== 0) {
-                        let basePath = file.base;
+            $('video source').each((index, element) => {
+                const $el = $(element);
+                const sourceSrc = $el.attr('src');
 
-                        if (file.history.length) {
-                          const historyPath = file.history[0].split('/');
-
-                          historyPath.pop();
-
-                          basePath = historyPath.join('/');
-                        }
-
-                        const sourcePath = path.join(basePath, sourceSrc);
-                        const mimetype = mime.lookup(sourcePath);
-
-                        if (mimetype !== 'application/octet-stream') {
-                            const sfile = fs.readFileSync(sourcePath);
-                            const simg64 = new Buffer(sfile).toString('base64');
-
-                            $el.attr('src', `data:${mimetype};base64,${simg64}`);
-                        }
-                    }
+                if (sourceSrc) {
+                    transform(sourceSrc,file,$el)
                 }
             });
 
