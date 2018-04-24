@@ -1,20 +1,20 @@
 {
-  "name": "gulp-image64",
+  "name": "gulp-video64",
   "version": "1.0.0",
-  "description": "Convert and replace image-files within your HTML to base64-encoded data.",
+  "description": "<< Forked from gulp-image64 >> Convert and replace video-files within your HTML to base64-encoded data.",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/leventekk/gulp-image64"
+    "url": "https://github.com/jose-nunez/gulp-video64"
   },
   "keywords": [
-    "gulpplugin", "endoding", "base64", "image", "html", "DOM"
+    "gulpplugin", "endoding", "base64", "video", "html", "DOM"
   ],
   "author": {
-    "name": "leventekk",
+    "name": "jose-nunez",
     "url": "https://github.com/leventekk"
   },
   "license": "MIT",
@@ -31,7 +31,7 @@
     "node": ">=4.0.0"
   },
   "bugs": {
-    "url": "https://github.com/leventekk/gulp-image64/issues"
+    "url": "https://github.com/jose-nunez/gulp-video64/issues"
   },
-  "homepage": "https://github.com/leventekk/gulp-image64"
+  "homepage": "https://github.com/jose-nunez/gulp-video64"
 }
